@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="/plantilla/plantillaPrincipal">
+
+<body>
+    <div layout:fragment="content">
+    <h1>Lista de Casos</h1>
+    <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}"
+        th:text="${mensaje}"
+         class="alert">
+        </div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Lista de Casos</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-responsive" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Tipo de Caso</th>
+                            <th>Detalle</th>
+                            <th>Fecha de Inicio</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Tipo de Caso</th>
+                            <th>Detalle</th>
+                            <th>Fecha de Inicio</th>
+                            <th>Estado</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr th:each="caso:${listaCasos}">
+                            <td th:text="${caso.id}"></td>
+                            <td th:text="${caso.fkCaseClient.clientId}+' - '+${caso.fkCaseClient.name}+' '+${caso.fkCaseClient.lastname}"></td>
+                            <td th:text="${caso.typeCase}"></td>
+                            <td th:text="${caso.details}"></td>
+                            <td th:text="${caso.beginDate}"></td>
+                            <td th:text="${caso.fkCaseStatus.description}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

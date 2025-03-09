@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="/plantilla/plantillaPrincipal">
+<body layout:fragment="content">
+    <div th:if="${mensaje}" 
+    th:class="${tipoMensaje == 'success' ? 'alert alert-success' : 'alert alert-danger'}">
+   <p th:text="${mensaje}"></p>
+</div>
+</body>
+</html>

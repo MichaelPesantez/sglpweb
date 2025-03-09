@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="/plantilla/plantillaPrincipal">
+
+<body>
+    <div layout:fragment="content">
+        <h1>INGRESO DE CASO</h1>
+        <form th:action="@{/guardarcaso}" th:object="${nuevoCasoLegal}" method="post">
+            <div class="form-group">
+                <label>ID del Caso</label>
+            <input readonly="true" type="text" class="form-control form-control-user" id="txtIdCaso" placeholder="Id Generado de forma automatica">
+        </div>
+        <div class="form-group">
+            <label>Cliente</label>
+            <select class="form-control form-control-user" th:field="*{fkCaseClient.id}">
+            <option value="0">Seleccionar Cliente</option>
+            <th:block th:each="client:${listaClientes}">
+                <option th:value="${client.id}"
+                    th:text="${client.clientId}+' - '+${client.name}+' '+${client.lastname}"></option>
+            </th:block>
+        </select>
+        </div>
+        <div class="form-group">
+            <label>Tipo de Caso</label>
+            <select class="form-control form-control-user"
+            th:field="*{typeCase}">
+                <option value="">Seleccionar Tipo de Caso</option>
+                <option value="Litigio Corporativo">Litigio Corporativo</option>
+                <option value="Derecho Familiar">Derecho Familiar</option>
+                <option value="Otros">Otros</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Fecha de Registro</label>
+            <input class="form-control form-control-user" type="date" id="fechaInicio">
+        </div>
+        <div class="form-group">
+            <label>Detalles</label>
+            <textarea th:field="*{details}" rows="5" cols="50" class="form-control form-control-user" type="text" id="detalles">
+            </textarea>
+        </div>
+        <div class="form-group">
+            <label>Estado del Caso</label>
+            <select class="form-control form-control-user" th:field="*{fkCaseStatus.id}">
+            <th:block th:each="estado:${listaEstado}">
+                <option th:value="${estado.id}"
+                    th:text="${estado.description}"></option>
+            </th:block>
+        </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary" onclick="return confirm('Esta seguro de Guardar el caso?')">Guardar</button>
+        </form>
+    </div>
+</body>
+</html>
